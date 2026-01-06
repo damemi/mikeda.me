@@ -1,6 +1,6 @@
-baseURL: "https://damemi.github.io/mikeda.me/"
+baseURL: "/"
 languageCode: "en-us"
-title: "Mike Dame"
+title: "mikeda.me"
 theme: "minimal"
 
 # Cache configuration for GitHub Pages
