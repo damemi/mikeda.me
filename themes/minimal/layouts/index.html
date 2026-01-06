@@ -1,0 +1,25 @@
+{{ define "main" }}
+<section class="home">
+  <h1>{{ .Site.Params.author }}</h1>
+  {{ .Content }}
+  
+  {{ $posts := where .Site.RegularPages "Section" "posts" }}
+  {{ if $posts }}
+  <section class="recent-posts">
+    <h2>Recent Posts</h2>
+    <ul class="post-list">
+      {{- range first 5 $posts.ByDate.Reverse }}
+      <li>
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </li>
+      {{- end }}
+    </ul>
+    {{ if gt (len $posts) 5 }}
+    <p><a href="/posts/">View all posts →</a></p>
+    {{ end }}
+  </section>
+  {{ end }}
+</section>
+{{ end }}
+

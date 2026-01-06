@@ -1,0 +1,12 @@
+# Theme metadata
+name = "Minimal"
+license = "MIT"
+licenselink = "https://github.com/damemi/mikeda.me/blob/main/LICENSE"
+description = "A minimal theme for personal blogs"
+tags = ["minimal", "blog", "personal"]
+features = ["minimal", "responsive"]
+min_version = "0.100.0"
+
+[author]
+  name = "Mike Dame"
+

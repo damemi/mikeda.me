@@ -1,0 +1,44 @@
+baseURL: "https://mikeda.me/"
+languageCode: "en-us"
+title: "Mike Dame"
+theme: "minimal"
+
+# Cache configuration for GitHub Pages
+caches:
+  images:
+    dir: ":cacheDir/images"
+
+# URL structure: mikeda.me/post-title
+permalinks:
+  posts: "/:slug/"
+
+# Clean URLs without .html extension
+uglyURLs: false
+
+# Site parameters
+params:
+  author: "Mike Dame"
+  description: "Personal blog of Mike Dame"
+  
+# Menu configuration
+menu:
+  main:
+    - name: "Home"
+      url: "/"
+      weight: 1
+    - name: "Posts"
+      url: "/posts/"
+      weight: 2
+    - name: "About"
+      url: "/about/"
+      weight: 3
+
+# Markdown rendering
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    style: "dracula"
+    lineNos: false
+
