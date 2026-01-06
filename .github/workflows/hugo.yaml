@@ -23,7 +23,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.154.2
+      HUGO_VERSION: 0.140.2
       TZ: America/New_York
     steps:
       - name: Checkout
