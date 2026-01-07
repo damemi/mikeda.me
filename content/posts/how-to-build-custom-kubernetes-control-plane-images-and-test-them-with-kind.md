@@ -1,9 +1,11 @@
 ---
-title: "How to Build Custom Kubernetes Control Plane Images (and Test Them With Kind)"
-date: 2020-11-03
-slug: "how-to-build-custom-kubernetes-control-plane-images-and-test-them-with-kind"
-description: ""
+title: "How to build custom Kubernetes control plane images (and test them with Kind)"
+date: 2020-11-03T20:44:52
 draft: false
+slug: how-to-build-custom-kubernetes-control-plane-images-and-test-them-with-kind
+categories:
+  - Uncategorized
+wordpress_id: 213
 ---
 
 If you are working on changes to a core Kubernetes component such as
@@ -20,16 +22,16 @@ kube control-plane pod). So this post may be particularly useful if
 you are also working on a custom scheduler, or plugins for the
 scheduler, or are simply trying to debug the default kube-scheduler.
 
-# Building control plane component images
+## Building control plane component images
 
 The first step (after making any code changes) is to run `make
-quick-release-images` from the root of the k8s.io/kubernetes
+quick-release-images` from the root of the `k8s.io/kubernetes`
 repository.
 
 This will build release images for all the core components:
 
 ```
-~/go/src/k8s.io/kubernetes$ make quick-release-images 
+~/go/src/k8s.io/kubernetes$ make quick-release-images
 +++ [1103 14:32:11] Verifying Prerequisites....
 +++ [1103 14:32:11] Using Docker for MacOS
 +++ [1103 14:32:12] Building Docker image kube-build:build-841902342a-5-v1.15.2-1
@@ -57,11 +59,7 @@ This will build release images for all the core components:
 +++ [1103 14:35:15] Deleting docker image k8s.gcr.io/kube-apiserver-amd64:v1.20.0-beta.1.5_c82d5ee0486191-dirty
 +++ [1103 14:35:24] Deleting conformance image k8s.gcr.io/conformance-amd64:v1.20.0-beta.1.5_c82d5ee0486191-dirty
 +++ [1103 14:35:24] Docker builds done
-```
-
-And it places them as individual .tar files in `./_output/release-images/amd64`:
-
-```
+And it places them as individual .tar files in ./_output/release-images/amd64:
 $ ls _output/release-images/amd64/
 total 817M
 drwxr-xr-x 7 mdame staff  224 Nov  3 14:35 .
@@ -71,52 +69,51 @@ drwxr-xr-x 3 mdame staff   96 Nov  3 14:34 ..
 -rw------- 2 mdame staff 150M Nov  3 14:35 kube-controller-manager.tar
 -rw------- 2 mdame staff 130M Nov  3 14:35 kube-proxy.tar
 -rw------- 2 mdame staff  63M Nov  3 14:35 kube-scheduler.tar
-```
 
-These can be loaded into docker, tagged, and pushed to your registry
-of choice:
-
-```
-$ docker load -i _output/release-images/amd64/kube-scheduler.tar 
+These can be loaded into docker, tagged, and pushed to your registry of choice:
+$ docker load -i _output/release-images/amd64/kube-scheduler.tar
 46d8985b3ff2: Loading layer [==================================================>]  60.37MB/60.37MB
 Loaded image: k8s.gcr.io/kube-scheduler-amd64:v1.20.0-beta.1.5_c82d5ee0486191-dirty
 $ docker tag k8s.gcr.io/kube-scheduler-amd64:v1.20.0-beta.1.5_c82d5ee0486191-dirty docker.io/mdame/kube-scheduler:test
 $ docker push docker.io/mdame/kube-scheduler:test
 The push refers to repository [docker.io/mdame/kube-scheduler]
-46d8985b3ff2: Pushed 
-c12e92a17b61: Layer already exists 
-79d541cda6cb: Layer already exists 
+46d8985b3ff2: Pushed
+c12e92a17b61: Layer already exists
+79d541cda6cb: Layer already exists
 printconfig: digest: sha256:c093dad1f4a60ce1830d91ced3a350982b921183c1b4cd9bfaae6f70c67af7ee size: 949
 ```
 
-# Deploying your custom image into a Kind cluster
+## Deploying your custom image into a Kind cluster
 
-(Note: Kind actually provides ways for you to build and load code
-changes into a cluster, see
-https://kind.sigs.k8s.io/docs/user/quick-start/#loading-an-image-into-your-cluster
+(Note: [Kind](https://kind.sigs.k8s.io) actually provides ways for you
+to build and load code changes into a cluster, see
+[https://kind.sigs.k8s.io/docs/user/quick-start/#loading-an-image-into-your-cluster](https://kind.sigs.k8s.io/docs/user/quick-start/#loading-an-image-into-your-cluster)
 and
-https://kind.sigs.k8s.io/docs/user/quick-start/#building-images. So
+[https://kind.sigs.k8s.io/docs/user/quick-start/#building-images](https://kind.sigs.k8s.io/docs/user/quick-start/#building-images). So
 this may be overkill, but allows you to make changes to an
-already-running cluster or with images you’ve already built).
+already-running cluster or with images you've already built).
 
 Start up a stock Kind cluster and get the current static pod manifest
-for the kube-scheduler (use `docker ps` to get the running cluster’s
+for the kube-scheduler (use `docker ps` to get the running cluster's
 container, then the static pod manifests are located at
 `/etc/kubernetes/manifests`):
 
 ```
 $ kind create cluster
 Creating cluster "kind" ...
- ✓ Ensuring node image (kindest/node:v1.19.1) 🖼 
- ✓ Preparing nodes 📦  
- ✓ Writing configuration 📜 
- ✓ Starting control-plane 🕹️ 
- ✓ Installing CNI 🔌 
- ✓ Installing StorageClass 💾 
+ ✓ Ensuring node image (kindest/node:v1.19.1) 🖼
+ ✓ Preparing nodes 📦
+ ✓ Writing configuration 📜
+ ✓ Starting control-plane 🕹️
+ ✓ Installing CNI 🔌
+ ✓ Installing StorageClass 💾
 Set kubectl context to "kind-kind"
 You can now use your cluster with:
+
 kubectl cluster-info --context kind-kind
+
 Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
+
 $ docker ps
 CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                       NAMES
 b4f712eff358        kindest/node:v1.19.1   "/usr/local/bin/entr…"   8 minutes ago       Up 8 minutes        127.0.0.1:58206->6443/tcp   kind-control-plane
@@ -183,7 +180,7 @@ status: {}
 Copy this and edit it to refer to my custom scheduler image (truncated here):
 
 ```
-$ cat kube-scheduler.yaml 
+$ cat kube-scheduler.yaml
 apiVersion: v1
 kind: Pod
 ...
@@ -205,7 +202,7 @@ spec:
 Copy this manifest into the Kind cluster, overwriting the existing manifest:
 
 ```
-$ docker cp kube-scheduler.yaml <cluster-container-ID>:/etc/kubernetes/manifests/kube-scheduler.yaml
+$ docker cp kube-scheduler.yaml :/etc/kubernetes/manifests/kube-scheduler.yaml
 ```
 
 And now the running pod should refer to your image:
@@ -233,20 +230,24 @@ spec:
     imagePullPolicy: Always
 ```
 
-# Deploying changes to the image
+## Deploying changes to the image
 
 If you need to deploy changes to the running pod, repeat the `make
 quick-release-images` and `docker load/tag/push` steps from
-above. Your new image won’t be pulled just by deleting the pod even
+above. Your new image won't be pulled just by deleting the pod even
 with `imagePullPolicy: Always` set, because these are static pods
 mirroring a running container. So, to pull a new image you need to
 exec back into the cluster and stop the running container:
 
 ```
-$ docker exec -it <container-ID> crictl ps
+$ docker exec -it  crictl ps
 CONTAINER           IMAGE               CREATED             STATE               NAME                      ATTEMPT             POD ID
 cfcb6d257aa59       0c3dd0a038e11       47 minutes ago      Running             kube-scheduler            7                   83163425eb615
 ... ... ...
-$ docker exec -it <container-ID> crictl stop cfcb6d257aa59
+$ docker exec -it  crictl stop cfcb6d257aa59
 cfcb6d257aa59
 ```
+
+And you should see a new pod start with your image pulled (as
+mentioned above, you could also load the changes directly into Kind's
+registry and pull from there).
