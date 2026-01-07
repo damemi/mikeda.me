@@ -23,15 +23,12 @@ params:
 # Menu configuration
 menu:
   main:
-    - name: "Home"
+    - name: "About"
       url: "/"
       weight: 1
     - name: "Posts"
       url: "/posts/"
       weight: 2
-    - name: "About"
-      url: "/about/"
-      weight: 3
 
 # Markdown rendering
 markup:
