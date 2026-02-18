@@ -6,6 +6,12 @@ I'm a software engineer currently working at
 [Odigos](https://odigos.io) on eBPF-based automatic observability with
 OpenTelemetry.
 
+I'm currently a maintainer for OpenTelemetry on the
+[opentelemetry-go-instrumentation](https://github.com/open-telemetry/opentelemetry-go-instrumentation)
+and [opentelemetry-ebpf-instrumentation
+(OBI)](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation)
+projects.
+
 I previously worked on the OpenTelemetry team at Google and the
 OpenShift control plane team at Red Hat, where I spent a lot of time
 as a Kubernetes maintainer for SIG-Scheduling and the
