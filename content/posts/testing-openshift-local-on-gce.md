@@ -120,3 +120,13 @@ browser and go to the OpenShift console from the URL that CRC provided
 
 You can also now locally log in with the `oc` commands that CRC
 provides and use `oc`/`kubectl` to interact with the cluster.
+
+# Using pull secret in cluster
+
+To pull Red Hat registry images (for example, testing a certified
+operator), you need to configure your Red Hat pull secret (the one you
+used to start CRC) as a cluster-wide secret:
+
+```
+oc set data secret/pull-secret -n openshift-config --from-file=.dockerconfigjson=pull-secret.txt
+```
