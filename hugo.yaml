@@ -26,9 +26,12 @@ menu:
     - name: "About"
       url: "/"
       weight: 1
+    - name: "Talks"
+      url: "/talks/"
+      weight: 2
     - name: "Posts"
       url: "/posts/"
-      weight: 2
+      weight: 3
 
 # Markdown rendering
 markup:
