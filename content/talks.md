@@ -7,6 +7,8 @@ Talks and presentations I've given on Kubernetes, eBPF, and observability.
 
 ## 2026
 
+- **KubeCon NA 2026**: [*From Bytes to Traces: A Deep Dive into OpenTelemetry eBPF Instrumentation Internals*](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/program/schedule/?id=1247277)
+- **KubeCon NA 2026 Observability Day**: [*Building Observability Control Planes with OpenTelemetry, eBPF, and OBI*](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/co-located-events/cncf-hosted-co-located-schedule/?id=1247219)
 - **PlatformCon 2026**: [*Zero-code tracing: Kubernetes-native observability without touching your app*](https://www.youtube.com/watch?v=DUAUU54HszQ)
 - **Odigos Virtual**: [*Tracing the Kubernetes Control Plane with eBPF and OpenTelemetry*](https://go.odigos.io/kubernetes-control-plane-tracing-with-ebpf-otel-odigos)
 
